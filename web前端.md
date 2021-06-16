@@ -7537,11 +7537,34 @@ const的特点
 
 
 
-#### 箭头函数
+#### 属性和属性节点
 
-#### 模板字符串
-
-
+````
+什么是属性?
+	对象上保存的变量就是属性
+	
+	
+如何操作属性
+	对象.属性名称 = 值
+	对象["属性名称"] = 值
+	对象.属性名称
+	对象["属性名称"]
+	
+	
+什么是属性节点?
+	在编写html代码时,在html标签中添加的属性,叫属性节点
+	保存在DOM元素中的attributes属性中
+	
+	
+如何操作属性节点
+	setAttribute
+	getAttribute
+	
+	
+属性节点和属性的区别
+	如何对象都有属性
+	但是只要DOM对象有属性节点
+````
 
 
 
@@ -8008,8 +8031,6 @@ var  a=[1,2,3,4,5,6,7,8,9,10];
     item	为值
     index	为下标
 ```
-
-
 
 
 
@@ -10022,6 +10043,16 @@ a.getBoundingClinetRect().left
 
 
 
+````
+/[1253]/								字符串是否含有数字1或者2或者5或者3
+/(as|djas)/								字符串是否含有字符串as或者字符串djas
+\d										一个数字
+\d+										多个连着一起的数字,不限长度,但是必须都是数字,不能有其他字符
+^										以什么开头
+$										以什么结尾
+
+````
+
 
 
 
@@ -11362,7 +11393,7 @@ $ 或 jQuery
 ```
 
 ```
-jquery是一个伪数组对象
+jquery对象是一个伪数组对象
 ```
 
 
@@ -11411,9 +11442,56 @@ $.parseJSON()			解析json串，转换为对象/数组
 
 
 
+````
+静态方法
+	保存在对象上的方法
+	
+	
+实例方法
+	保存在原型对象上的方法
+````
 
 
 
+
+
+### jquery中的静态方法
+
+```
+1. each
+	可以遍历数组和伪数组,由于jquery对象是伪数组,所以不能使用forEach遍历,需要使用each遍历
+	
+	
+2. map
+	和each一样,既可以遍历数组,也可以遍历伪数组
+	map和each的区别:
+		默认情况下,each返回当前遍历的数组,map返回一个空数组
+		each不支持在回调函数中对遍历的数组进行处理
+		map通过return对遍历的数组进行处理,然后返回一个新的数组
+		所以,each用于遍历,map用于加工
+		
+        
+3. trim
+	去除字符串左右的空格
+	
+	
+4. isWindow
+	判断传入的对象是否是window对象
+	
+	
+5. isArray
+	判断传入的对象是否是真数组,伪数组为false
+	
+	
+6. isFunction
+	判断传入的对象是否是函数
+	
+	
+7. holdReady
+	是否暂停ready事件的执行
+		传入false,不暂停ready事件的执行
+		传入true,暂停ready事件的执行
+```
 
 
 
@@ -11568,6 +11646,89 @@ $.parseJSON()			解析json串，转换为对象/数组
 
 
 
+#### attr
+
+```
+传入一个参数,获取
+    无论找到多少个元素,都会返回第一个元素指定的属性节点的值
+传入两个参数,设置
+	无论找到多少个元素,都会设置
+	如果设置的元素上指定的属性节点不存在,新增
+```
+
+
+
+
+
+#### removeAttr
+
+```
+删除指定属性节点
+```
+
+
+
+
+
+#### prop和removeProp
+
+```
+prop
+	和arrt方法一致
+	
+	
+removeProp
+	和removeProp方法一致
+	
+	
+	
+注意:
+	prop不仅可以操作属性节点,也可以操作属性
+	attr只能操作属性节点
+	
+	
+	
+如果操作的属性节点值为布尔值,建议使用prop,否则使用attr
+```
+
+
+
+
+
+#### 类方法
+
+```
+addClass('class1 class2 class3')		添加
+	
+removeClass('class1 class2 class3')		删除
+
+toggleClass('class3')					切换(有就删除,无则添加)
+```
+
+
+
+
+
+
+
+#### 文本值
+
+```
+html		传入参数设置,不传获取,和innerHTML一样
+text		和innerText一样
+val			获取和设置文本框的内容
+```
+
+
+
+
+
+
+
+
+
+
+
 #### css
 
 ```html
@@ -11705,8 +11866,8 @@ position		获取相对于父元素左上角的坐标，只对可见元素有效
             $('#box').scrollTop(300)
 
             // 处理兼容
-            $('html').scrollTop(500)
-            $('body').scrollTop(500)
+            $('html,body').scrollTop(500)
+            //$('body').scrollTop(500)
 
             // 如果jquery版本新，可以使用document
             $('document').scrollTop(500)
@@ -12483,6 +12644,13 @@ window.devicePixelRatio
 
 
 
+
+````
+不加上他<meta name="viewport" content="width=device-width, initial-scale=1.0">,
+一个css像素 === 一个物理像素 === 0.5个设备独立像素
+加上他<meta name="viewport" content="width=device-width, initial-scale=1.0">,
+一个css像素 === 一个设备独立像素 === 2个物理像素
+````
 
 
 
@@ -16986,7 +17154,9 @@ mongoose.connection.on('open', function (err) {
 
 
 
+5ca9e773b49ef916541160d2
 
+5ca9e773b49ef916541160d2
 
 
 
@@ -19038,7 +19208,7 @@ npm i  webpack@4.29.4 webpack-cli@3.2.3 -D
 
 
 
-
+yarn add -D typescript  webpack-dev-server webpack@4.29.4 webpack-cli@3.2.3 html-webpack-plugin clean-webpack-plugin ts-loader cross-env
 
 3. 使用
 
@@ -19159,8 +19329,8 @@ module.exports={
 	安装loader
 	yarn add css-loader less-loader style-loader less -D
 	
-	  style-loader    			   	用于在html文档中创建一个style标签,将样式塞进去
-      css-loader      				 将less编译后的css转换为commonJS的一个模块
+	  style-loader    			   	用于在html文档中创建一个style标签,将样式塞进去(把js中的css转移到html的style标签中)
+      css-loader      				 将less编译后的css转换为commonJS的一个模块(将css打包到js中去)
       less-loader@4.0.5      		 编译less为css,但不生成单独的css文件,(编译之后在内存中)
       less							使webpack认识less文件
 ```
@@ -19373,6 +19543,12 @@ import '@babel/polyfill'            //包含ES6的高级语法的转换
 
 
 **第二种办法---------借助按需引入core-js按需引入**
+
+
+
+````
+优势: 编译后的文件不大
+````
 
 
 
@@ -19628,7 +19804,7 @@ less-loader的版本也要为低版本,不然会报错
   	 
 然后我们可以在命令行中输入 npm run a		即可执行webpack命令
 
-注意: 当名字谢伟start时,输入命令可以不加run
+注意: 当名字设为start时,输入命令可以不加run
 ```
 
 
@@ -20300,6 +20476,16 @@ js语句和js表达式的区别
 
 
 
+```
+jsx中写入内联样式
+	<div style={{color:'red',display:a}}></div>
+	
+	在jsx中写入内联样式,首先写: style={{}}
+	里面的括号写入类似对象格式的样式,样式名为key,值为value
+	如果是普通的值,写引号
+	如果是js语法,不用写引号
+```
+
 
 
 
@@ -20711,7 +20897,7 @@ shouldComponentUpdate		判断组件是否要需要被更新(返回的是布尔�
 
 ReactDOM.unmountComponentAtNode()			设置删除指定节点内的组件
 
-componentWillReceiveProps		当我们向组件中传入新的状态时,会触发
+componentWillReceiveProps		当props发生变化时执行，初始化render时不执行，在这个回调函数里面，你可以根据属性的变化，通								  过调用this.setState()来更新你的组件状态
 
 this.forceUpdate()				将页面强制渲染一下
 ```
@@ -20765,6 +20951,4966 @@ componentWillUpdate()
 **生命周期图(新)**
 
 ![生命周期图(新)](C:\Users\86188\Pictures\Camera Roll\生命周期图(新).png)
+
+**新增的钩子**
+
+````
+getDerivedStateFromProps()				
+	作用: 这个钩子用于取代: componentWillMount  componentWillUpdate
+	方法: 第一个参数为props,第二个参数为state
+    实际作用: 将外部传入的参数设置到状态中
+    返回值: 对象(会将对象传入到state中,有则更改,无则增加)
+    
+    
+getSnapshotBeforeUpdate()
+	方法: 第一个参数为props,第二个参数为state
+	返回值: 为一个值(这个值为componentDidUpdate的第三个参数的值,前两个参数为props和state)
+	
+````
+
+
+
+
+
+
+
+
+
+#### Diff算法
+
+```
+React工作流程
+	
+	初始化显示页面
+		创建虚拟DOM树 ----> 真实DOM树 ----> 绘制界面显示
+		
+	更新界面
+		setState()更新状态 ----> 重新创建虚拟DOM数 ----> 新/旧树比较差异 ----> 更新差异对应真实DOM ----> 局部界面重绘
+```
+
+
+
+
+
+
+
+
+
+
+
+#### react中的key
+
+```
+ 虚拟DOM的key的作用
+ 	当状态数据发生变化时,react会生成新的虚拟DOM,随后react将之前的旧虚拟DOM与新的虚拟DOM进行Diff比较
+ 	
+ 		a. 若旧的虚拟DOM找到新的虚拟DOM(更新后的虚拟DOM)相同的key
+ 				若虚拟DOM没变(旧的虚拟DOM和新的虚拟DOM一样),就不去刷新页面上的真实DOM
+ 				若虚拟DOM变了,先更新虚拟DOM,再刷新页面上的真实DOM
+ 				
+		 b. 旧的虚拟DOM没有找到新的虚拟DOM中相同的key
+				 创建新的虚拟DOM,随后渲染真实DOM到页面上
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+### react脚手架
+
+```
+使用react脚手架,需要使用create-react-app
+create-react-app: 用于创建react项目的脚手架库
+```
+
+
+
+
+
+
+
+```
+安装create-react-ap(只需一次)
+	npm i create-react-app -g
+	
+create-react-app  peiqi			创建react脚手架应用
+
+编译		npm start
+```
+
+
+
+
+
+
+
+index.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+      		%PUBLIC_URL%/相当于/,相当于public的路径(仅仅适用于react脚手架)
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+      		移动端屏幕适配
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+      		更改浏览器地址栏的颜色(手机浏览器,还必须是安卓手机)
+    <meta name="theme-color" content="#000000" />
+      		爬虫获取的内容
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+      		在苹果手机中,将网站收藏成类似于手机中的应用时,显示的图片为此处指定的图标
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+      		给网页加壳时的配置文件引入
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+      		当浏览器不支持JavaScript脚本语言时会执行它,输出内容
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
+
+```
+
+
+
+
+
+app.js
+
+```javascript
+import logo from './logo.svg';		//react脚手架中引入图片的方式
+import './App.css';					//react脚手架中引入样式的方式
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;			//暴露app组件
+
+```
+
+
+
+
+
+
+
+index.js
+
+````javascript
+import React from 'react';          					//引入react核心库  
+import ReactDOM from 'react-dom';						//引入reactDOM
+import './index.css';									//引入样式
+import App from './App';								//引入app组件
+import reportWebVitals from './reportWebVitals';		
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+````
+
+
+
+
+
+
+
+
+
+
+
+#### 小知识
+
+```
+往标签内添加事件
+	<a onClick={}></a>
+
+如果不写参数
+	<a onClick={this.demo}></a>
+	
+传入参数
+	<a onClick={()=>{this.demo(a)}}></a>
+```
+
+
+
+
+
+
+
+```
+confirm
+	window上的一个方法
+    会在页面弹出一个提示框,点击确定为true,点击取消为false
+    使用:
+    	if(window.confirm('你是人吗')){
+    	}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### react ajax
+
+
+
+```
+React本身只关注于界面,并不包含发送ajax请求的代码
+前端应用需要通过ajax请求与后台进行交互
+react应用中需要集成第三方ajax库(或自己封装)
+```
+
+
+
+
+
+**常用的ajax请求库**
+
+````
+jquery: 比较重
+axios: 轻量级
+fetch: 原生函数,但是老版本浏览器不支持使用
+````
+
+
+
+
+
+https://api.github.com/search/repositories?q=r&sort=stars
+
+
+
+
+
+
+
+
+
+
+
+### react fetch
+
+````
+无需引入,是h5特有的,ie8以下无法使用
+````
+
+
+
+```
+xhr,jquery,axios: 看最终结果,不符合关注分离原则
+fetch: 1.联系服务器   2. 携带回来服务器给你的数据
+```
+
+
+
+
+
+```
+fetch(url)
+
+.then(function(response) {
+  return response.json();
+})
+
+.then(function(data) {
+  console.log(data);
+})
+
+.catch(function(e) {
+  console.log("Oops, error");
+});
+
+
+分析:
+	第一个then: 当你连接服务器成功的时候调用,服务器返回一个成功的promise对象,但是then后的response没有data属性,这是fetch做				的,当你使用response.json()时,fetch会给你一个状态为成功的promise对象,对象的内容为data属性
+	
+	第二个then: 得到第一个then返回回来的状态为成功的promise对象,内容为data,然后可以进行操作
+	
+	第一个catch: 当你第一个then和第二个then没有执行时,此时,说明连接服务器失败,就可以调用最后一个catch,处理错误结果
+```
+
+
+
+```
+fetch的问题:
+    当你连接服务器时,如果域名写对,路由写错,也算连接到服务器,导致请求不会报错
+    当你连接服务器时,如果域名写错,路由写对,就连接不到服务,报错
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 消息订阅和发布机制
+
+```
+作用: 实现兄弟组件之间通信
+```
+
+
+
+```
+工具库: PubSub-js
+
+安装: npm i pubsub-js
+```
+
+
+
+
+
+```
+消息订阅: 就如同订阅一份报纸,每次报刊发布报纸时,我都会有一份
+
+发布机制: 每次发布报纸
+```
+
+
+
+**使用**
+
+```
+消息订阅
+    PubSub.subscribe('atguigu',(msg,data)=>{
+   		this.setState(data)
+    })
+    subscribe方法中第一个参数: 订阅消息的名字
+    subscribe方法中第二个参数: 回调函数,接收发布时的值
+    回调函数中第一个参数: 发布消息的名字,和订阅消息名字一样
+    回调函数中第二个参数: 发布的结果
+    
+    
+发布机制
+    PubSub.publish('atguigu',{
+        users:[],
+        isFirst:false,       
+        isLoading:true,    
+        error:''
+    })
+    publish方法中第一个参数: 发布消息的名字
+    publish方法中第一个参数: 发布的值
+    
+    
+    
+什么组件用订阅,什么组价用发布
+	需要兄弟组件的值的组件用订阅
+	需要给兄弟组件值的组件用发布
+	
+	
+每次publish调用时,subscribe都会调用(前提是他们的名字都一样,也就是第一个参数一样)
+
+
+缺点: 乱,当你项目过大,组件过多,也许会导致订阅名重复或发布名重复(也就是说没有集中式管理)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 几个重要技术总结
+
+
+
+#### 组件间通信
+
+**方法1------通过props传递**
+
+```
+1. 共同的数据放在父组件上,特有的数据放在自己组件内部(state)
+2. 通过props可以传递一般属性和函数属性(传递函数属性一般是子组件需要使用父组件的state),只能一层一层传递
+3. 一般属性---->父组件传递数据给子组件---->子组件读取数据
+4. 函数属性---->子组件传递数据给父组件---->子组件调用函数
+5. 适应: 最好用父传子,子传父也行,子传子也行(比较麻烦)
+```
+
+
+
+
+
+**方法2------使用消息订阅和发布机制**
+
+
+
+
+
+**方法3------redux**
+
+```
+后面讲
+```
+
+
+
+
+
+
+
+
+
+
+
+### React-router
+
+```
+后端路由:
+	1. key-value       key=请求方式+请求URL(虚拟地址)			value=回调函数
+	2. 用户看到的是什么,由后端决定
+	
+	
+前端路由:
+	1. key-value		key=url			value=组件		
+	2. 用户看到的是什么由前端决定
+```
+
+
+
+
+
+
+
+
+
+**react-router-dom**
+
+```
+1. react的一个插件库
+2. 专门用来实现一个SPA应用
+3. 基于react的项目都会用到此库
+```
+
+
+
+
+
+**SPA**
+
+```
+1. 单页面web应用
+2. 整个应用只有一个完整的页面
+3. 点击页面中的链接不会刷新页面,本身也不会向服务器发请求
+4. 当点击路由链接时,只会做页面的局部刷新
+5. 数据都需要通过ajax请求获取,并在前端异步展现
+```
+
+
+
+
+
+
+
+#### API
+
+```
+<BrowserRouter> : 路由器,想要在组件内些路由标签,必须在最外层套它
+
+<Route> : 路由,当你输入指定url时,会触发它,执行组件
+
+<Redirect> : 重定向,当全部路由和输入的url不匹配时,触发
+
+<Link> : 路由链接,点击它,会在寻找指定路由(废弃)
+
+<NavLink> : 路由链接,点击它,会在寻找指定路由(最新)
+
+<Switch> : 在Route外层套一个它,当点击路由链接时,如果与路由匹配上,不继续往下匹配
+
+<HashRouter> : 路由器,但是与BrowserRouter不同,他会在url的根路由上添加一个#,#后的都不会向服务器发送请求,为纯前端路由
+```
+
+
+
+
+
+
+
+
+
+**属性**
+
+```
+NavLink中的属性:
+	to: 点击该元素时,给url添加路由about
+    activeClassName: 点击该元素时,给该元素添加执行类
+    replace: 不会产生浏览器历史,默认产生
+    
+    
+Route中的属性:
+	exact={true}: 开启精准匹配,默认为模糊匹配(只要path的内容是url中路由的字段,也就是说path="/add" url路由为add123,那么就					匹配上了),精准匹配是完全一样才可以匹配上
+```
+
+
+
+
+
+
+
+
+
+**路由组件和一般组件的区别**
+
+```
+	props多了history
+			location
+			match
+			staticContext
+```
+
+```
+history:
+    action: "REPLACE"
+    block: ƒ block(prompt)
+    createHref: ƒ createHref(location)
+    go: ƒ go(n)
+    【goBack: ƒ goBack()】
+    【goForward: ƒ goForward()】
+    length: 2
+    listen: ƒ listen(listener)
+    location: {pathname: "/about", search: "", hash: "", state: undefined, key: "013csy"}
+    【push: ƒ push(path, state)】
+    【replace: ƒ replace(path, state)】
+    __proto__: Object
+    
+location:
+    hash: ""
+    key: "013csy"
+    【pathname: "/about"】   					中括号选中的都是重点
+    search: ""
+    state: undefined
+    __proto__: Object
+    
+match:
+    isExact: true
+    【params: {}】
+    path: "/about"
+    url: "/about"
+    __proto__: Object
+    
+staticContext: undefined		不管,react内部用的
+```
+
+
+
+
+
+```
+点击跳转页面
+<Button onClick={this.props.history.push('/admin/prod_about/product/add_update')}></Button>
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+### antd
+
+**前讲**
+
+```javascript
+import React,{Component} from 'react'
+import Button from './components/Button.jsx'
+
+export default class App extends Component{
+    render(){
+        return (
+            <div>
+            <h2>App</h2>
+            {/* 当我们将一个组件标签设置为不是自结束的标签，标签内的内容会作为key=children，value=内容的props传入到组件中 */}
+            <Button>点我</Button>
+            </div>
+        )
+    }
+}
+```
+
+
+
+````javascript
+import React,{Component} from 'react'
+
+export default class Button extends Component{
+
+
+    render(){
+        return (
+            <button style={{backgroundColor:"gray",color:"orange",width:"100px",height:"40px",outline:"none"}}>{this.props.children}</button>
+        )
+    }
+}
+````
+
+
+
+
+
+
+
+#### 实现在react脚手架中按需引入antd样式
+
+```
+第一步：
+	yarn add react-app-rewired customize-cra
+		react-app-rewired的作用：更改create-react-app的配置
+		
+	
+	
+第二步：
+	修改package文件
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  
+  
+第三步：
+	在项目根路径下创建js文件config-overrides.js
+	内容：
+		module.exports=function override(config,env){
+   			 return config;
+		}
+		
+		
+第四步：
+	yarn add  babel-plugin-import
+	
+	
+第五步：
+	修改config-overrides.js内容
+	内容：
+	const {override,fixBabelImports} =require('customize-cra')
+		module.exports=override(
+    	fixBabelImports('import',{
+       		libraryName:'antd',
+        	libraryDirectory:'es',
+        	style:'css',
+    	}),
+    );
+    
+    
+第六步：
+	删除App.js中的antd.css引入
+```
+
+
+
+
+
+
+
+
+
+#### 自定义主题
+
+````
+第一步
+	yarn add less less-loader@5.0.0
+	
+	
+第二步
+	修改config-overrides.js内容
+	内容：
+		const {override,fixBabelImports,addLessLoader} =require('customize-cra')
+		module.exports=override(
+        fixBabelImports('import',{
+            libraryName:'antd',
+            libraryDirectory:'es',
+            style:true,
+        }),
+        addLessLoader({
+            javascriptEnabled: true,
+            modifyVars:{'@primary-color':'#1DA57A'},
+        }),
+        );
+        
+        
+第三步
+	通过修改modifyVars:{'@primary-color':'#1DA57A'},中的#1DA57A来设置主题颜色
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### git复习
+
+```
+本地有仓库，远程无仓库（项目刚开始）
+	1. git add *
+	2. git commit -m '提交的信息'
+	3. git remote add origin http://github/ad
+	4. git push origin 分支名（默认只有一个master分支）
+	
+	
+本地无仓库，远程有仓库（项目在你入职前就已经开始了）
+	1. git clone http://github/ad (克隆下来的仓库里面已经包含了git文件夹，不用再设置关联了)
+	
+	
+项目从头开始
+	第一种方法
+        1. 创建一个远程仓库，随后克隆
+        2. 编写代码，本地管理，推送远程
+    第二种方法
+    	1. 建立一个本地仓库，再建立一个远程仓库，关联
+```
+
+
+
+
+
+## react项目
+
+
+
+```
+mock.js: 用于实现前端人员在没有服务器，没有数据库的情况下模拟数据
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### redux
+
+````
+redux是一个独立专门用于做状态管理的js库
+它可以用在react,angular,vue等项目中,但基本与react配合使用
+作用: 集中式管理react应用中多个组件共享的状态
+````
+
+
+
+```
+yarn add redux
+```
+
+
+
+![redux原理图](C:\Users\86188\Pictures\Camera Roll\redux原理图.jpg)
+
+
+
+
+
+```
+原理:
+	首先ReactComponents(react组件)告诉ActionCreators自己要对状态做什么,
+	ActionCreators给Store发送一个action,action中包含(type: ReactComponents要对状态做什么 data: 数据)
+	Store将原本的状态和action传给Reducers,让Reducers进行处理,随后Reducers将处理后的新状态给Store
+	Store再将状态给ReactComponents
+```
+
+
+
+
+
+
+
+
+
+
+
+#### API
+
+
+
+**store**
+
+```
+作用:
+	redux库最核心的管理对象
+	它内部维护着:
+		state --------- 状态
+		reducer ------- 操作状态(store的手下)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### redux的三个核心概念
+
+
+
+**action**
+
+```
+1. 标识要执行行为的对象
+2. 包含2个方面的属性
+		type: 标识属性,值为字符串,唯一,必要属性
+		xxxx: 数据属性,值为任意类型,可选属性
+```
+
+
+
+
+
+
+
+**reducer**
+
+```
+1. 根据老的state和action产生新的state的纯函数
+
+```
+
+
+
+
+
+
+
+**store**
+
+```
+1. 将state和action和reducer联系在一起的对象
+```
+
+
+
+
+
+
+
+
+
+
+
+#### React-redux将所有组件分为两类
+
+```
+yarn add react-redux
+```
+
+
+
+```
+UI组件
+	1. 只负责UI的呈现,不带有任何业务逻辑
+	2. 通过props接收数据(一般数据和函数)
+	3. 不使用redux任何的API
+	4. 一般保存在components文件夹下
+	
+	
+容器组件
+	1. 负责管理数据和业务逻辑,不负责UI的呈现
+	2. 使用Redux的API
+	3. 一般保存在containers文件夹下
+```
+
+
+
+
+
+
+
+#### redux异步编程
+
+````
+yarn add redux-thunk
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+yarn add redux-devtools-extension			用于支持redux开发者调试工具的运行
+```
+
+
+
+
+
+
+
+
+
+
+
+### ajax解决跨域
+
+````
+解决跨域的方法
+	1. jsonp
+	2. cors
+	3. 配置代理
+````
+
+
+
+**配置代理**
+
+```
+在package.json中添加
+	"proxy":"http://localhost:5000"		访问的服务器地址
+```
+
+
+
+```
+jsonp		用于解决跨域的库
+
+	在项目中我们向百度发送请求获取天气,但是百度没有设置core,导致我们发送请求会导致跨域
+```
+
+
+
+
+
+
+
+```
+401     代表没有权限去访问
+```
+
+
+
+```
+screenfull				页面全屏库
+
+
+	//切换全屏按钮回调
+    fullScreen=()=>{
+        screenfull.toggle();
+    }
+    
+    //当全屏切换时会触发
+    screenfull.on('change',()=>{
+        let isFull=!this.state.isFull
+        this.setState({isFull})
+    })
+```
+
+
+
+```
+dayjs					专门处理时间的库
+
+	dayjs().format('{YYYY} MM-DDTHH:mm:ss SSS [Z] A')  时间转换
+					YYYY: 年
+					MM: 月
+					DD: 天
+					HH: 时
+					mm: 分
+					ss: 秒
+					其他的东西都可以更改或删除
+					
+					比如:
+						data:dayjs().format('YYYY年 MM月DD日 HH:mm:ss')
+```
+
+
+
+
+
+````
+天气预报请求地址:
+	http://api.map.baidu.com/telematics/v3/weather
+	http://api.map.baidu.com/telematics/v3/weather?location=xxx&output=json&ak=3p49MVra6urFRGOT9s8UBWr2
+	
+	
+请求方式:
+	get
+````
+
+| 参数名称 | 类型   | 是否必选 | 描述          |
+| -------- | ------ | -------- | ------------- |
+| location | string | Y        | 城市名称      |
+| output   | string | Y        | 返回值类型    |
+| ak       | string | Y        | 应用的授权key |
+
+
+
+
+
+
+
+````
+注意: 当我们在想到如何解决同步操作无法等待异步操作的结果时,首先要想到promise
+````
+
+
+
+
+
+
+
+
+
+````
+当state中的a是一个对象或数组时,不能直接修改
+需要先
+	let a= [...this.state.a]
+	a.b=1
+	this.setState({a})
+````
+
+
+
+
+
+
+
+
+
+```
+分页:
+	前端分页:
+		前端向服务器发送请求,服务器将所有数据返回给前端,前端对数据进行切割,整理,划分页数
+		当数据量足够大时会出现页面卡顿或浏览器"假死"
+		
+	后端分页:
+		前端向服务器发送请求,服务器将一部分数据返回给前端,前端发送请求时,需要指明每页显示条数,你要那一页,
+		交个服务器进行数据切割
+		
+```
+
+
+
+
+
+
+
+
+
+````
+this.setState()
+	一个异步操作
+	
+````
+
+
+
+
+
+
+
+```
+wysiwyg				富文本编辑器库(react专用)
+```
+
+
+
+```
+easyUI	zTree				jquery周边库,配合jquery使用			
+```
+
+
+
+
+
+
+
+
+
+
+
+### 数据可视化
+
+```
+echarts
+
+D3
+
+highCharts
+```
+
+
+
+
+
+
+
+
+
+## TypeScript
+
+```
+微软发布
+
+ts不能直接在浏览器上运行,需要将ts转换为js,然后运行
+```
+
+
+
+### 安装
+
+```
+npm install -g typescript
+```
+
+
+
+
+
+
+
+````
+tsc  ./a.ts					将ts文件编译为js文件
+````
+
+
+
+
+
+
+
+
+
+### 类型注解
+
+```typescript
+ /*
+ 
+ 类型注解: 是一种轻量级的为函数或者变量添加的约束
+        a传入的是一个数组,会报错,但是编译的js不会报错,因为js是弱类型的语言
+
+ */
+
+
+
+(()=>{
+    function showMsg(str:string){
+        return '窗前明月光,' + str
+    }
+    let a = '实地速度'
+    console.log(showMsg(a))
+})()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## VUE
+
+```
+渐进式: 不是一下把所有的插件给你,而是你要什么给你什么
+```
+
+```
+构建: 将源代码经过各种处理编译成浏览器可以高效执行的代码
+```
+
+
+
+```
+特点:
+	遵循MVM模式
+	编码简洁,体积小,运行效率高,适合移动/PC端开发
+	它本身只关注UI,可以轻松引入vue插件或其他第三方库开发项目
+```
+
+
+
+```
+vue扩展插件
+	vue-cli							vue脚手架
+	vue-resource(axios)				ajax请求
+	vue-router						路由
+	vuex							状态管理
+	vue-lazyload					图片懒加载
+	vue-scroller					页面滑动相关
+	mint-ui							基于vue的ui组件库(移动端)
+	element-ui						基于vue的ui组件库(pc端)
+```
+
+
+
+
+
+
+
+### 什么是MVVM？
+
+- 概念介绍
+
+  - MVVM分为三个部分：分别是M（Model，模型层 ），V（View，视图层），VM（ViewModel，V与M连接的桥梁，也可以看作为控制器）
+     1、 M：模型层，主要负责业务数据相关；
+     2、 V：视图层，顾名思义，负责视图相关，细分下来就是html+css层；
+     3、 VM：V与M沟通的桥梁，负责监听M或者V的修改，是实现MVVM双向绑定的要点；
+  - MVVM支持双向绑定，意思就是当M层数据进行修改时，VM层会监测到变化，并且通知V层进行相应的修改，反之修改V层则会通知M层数据进行修改，以此也实现了视图与模型层的相互解耦；
+
+  
+
+
+
+
+
+
+
+
+
+
+
+### VUE对象的选项
+
+````
+el
+	指定dom标签容器的选择器
+	Vue就会管理对应的标签及其子标签
+	也可以通过$mount()来处理
+	
+	
+	
+	
+	
+data
+	对象或函数类型
+	指定初始化状态属性数据的对象
+	vm也会自动拥有data中所有属性
+	页面中可以直接访问使用
+	数据代理: 由vm对象来代理对data中所有属性的操作(读/写)
+	data数据监视的特点:
+		1. vue会监视data中所有层次的属性
+		2. 对象中的属性数据通过添加set方法来实现监视
+		3. 数组中的元素也实现了监视: 重写数组一系列更新元素的方法
+			1]. 调用原生对应的方法对元素进行处理
+			2]. 去更新页面
+			
+			
+			
+			
+			
+methods
+	包含多个方法的对象
+	供页面中的事件指令来绑定回调
+	回调函数默认有event参数,但也可以指定自己的参数
+	所有的方法由vue对象来调用,访问data中的属性直接使用this.xxx
+	如果想往回调函数中传入参数,也想使用event,在页面绑定回调时传入的参数为(参数1,参数2,$event)
+	
+	
+	
+	
+computed
+	计算data中没有定义,但是在页面上以插值的形式存在的属性
+	包含多个计算属性的对象
+	根据已有属性进行计算返回一个新的数据,供页面获取显示
+	如果同时还需要监视计算属性的变化,需要使用getter/setter
+	计算属性有缓存,内部使用对象容器缓存,可以减少计算的次数
+	如何给对象定义get/set属性
+		对象创建之后指定: Object.defineProperty(obj,age,{get(){},set(){}})
+		在创建对象时指定: get name () {return xxx}  /  set name (value) {}
+
+
+
+watch
+	监视data中定义了的属性
+	包含多个属性监视的对象
+	分为一般监视和深度监视
+	
+````
+
+
+
+
+
+### this
+
+
+
+```
+mounted() {
+    setInterval(function () {			function函数this指向window
+    	this.isShow = !this.isShow
+    }, 1000);
+},
+
+
+mounted() {
+    setInterval(function () {			使用bind将当前函数加工,返回一个this指向为指定this的函数
+    	this.isShow = !this.isShow
+    }.bind(this), 1000);
+},
+
+
+mounted() {
+    setInterval(()=> {					箭头函数的this指向父函数的this
+    	this.isShow = !this.isShow
+    }, 1000);
+},
+
+
+mounted() {
+	const that = this
+    setInterval(function () {			在函数外部申明this,函数内部使用
+    	that.isShow = !that.isShow
+    }, 1000);
+},
+```
+
+
+
+```
+bind
+	1. 返回了一个新的函数
+	2. 新函数内部调用了旧函数(通过call调用)
+	3. 在调用旧函数时,旧函数的this指向为bind传入的第一个参数
+```
+
+
+
+
+
+
+
+### 生命周期
+
+```
+vue生命周期分为三个阶段
+	1. 初始化阶段
+		beforeCreate()
+		created()
+		beforeMount()
+		mounted()
+	2. 更新状态
+		beforeUpdate()
+		updated()
+	3. 销毁vue实例: vm.$destory()
+		beforeDestory()
+		destoryed()
+```
+
+
+
+
+
+```
+常用的生命周期方法
+	created()/mounted(): 发送aiax请求,启动定时器等异步任务
+	beforeDestory()	   : 做收尾工作,如: 清除定时器
+```
+
+
+
+```
+在beforeCreate()和created()之间实现数据代理/data数据的监视(setter)
+	也就是说,在beforeCreate无法得到vue实例的data数据
+	但在created可以
+```
+
+```
+在beforeMount()和mounted()之间实现了可以通过ref读取页面标签对象
+	也就是说,在beforeMount中,还是虚拟dom,没有挂载到页面上,无法获取ref
+	但是mounted可以,因为挂载到页面上了
+```
+
+```
+在beforeUpdate()和updated()之间实现的是页面的更新
+	也就是说,在beforeUpdate中,页面还没有更新
+	但是在updated中,页面更新了
+	在beforeUpdate中,数据已经更新,但是页面没有更新
+```
+
+
+
+
+
+
+
+
+
+### 过滤器
+
+```
+过滤器:
+    功能: 对要显示的数据进行特点格式化后再显示
+    注意: 并没有改变原本的数据,可是产生新的对应的数据
+
+定义过滤器: Vue.filter(filterName,function(value,参数1,参数2){})
+
+使用过滤器: <div>{{value | filter(参数1)}}</div>
+```
+
+
+
+
+
+
+
+
+
+```
+指令 ----------- 操作标签
+插值 ----------- 操作文本
+```
+
+
+
+
+
+
+
+
+
+
+
+### 指令
+
+```
+常用内置指令
+        v-text                      更新元素的textContent
+        v-html                      更新元素的innerHTML
+        v-if                        如果为true,当前标签才会输出到页面
+        v-else                      如果为false,当前标签才会输出到页面
+        v-show                      通过控制display样式来控制显示/隐藏
+        v-for                       遍历数组/对象
+        v-on                        绑定事件监听,简写@
+        v-bind                      强制绑定解析表达式,可以省略v-bind(对标签属性强制绑定,可以动态修改标签属性的值)
+        v-model                     双向数据绑定(表单)
+        ref                         为某个元素注册一个唯一标识,vue对象通过$els属性访问这个元素对象
+```
+
+
+
+**自定义创建指令**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/vue.js" type="text/javascript"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+
+     -->
+
+     <div id="app">
+         <p v-upper-text="msg"></p>
+         <p v-lower-text='msg'></p>
+     </div>
+    <script  type="text/javascript">
+        /*
+            注册全局指令
+            el: 指令属性所在的标签元素
+            binding: 包含指令相关数据的对象
+            注意: 要写在实例vm的前面
+        */
+        Vue.directive('upper-text',function (el,binding) {
+            console.log('upper-text',binding)
+            el.textContent = binding.value.toUpperCase()
+        })
+
+        new Vue({
+            el:'#app',
+            data: {
+                msg : 'I love You'
+            },
+            //注册局部指令
+            directives:{
+                'lower-text':function (el,binding) {
+                    console.log('upper-text',binding)
+                    el.textContent = binding.value.toLowerCase()
+                }
+            }
+        })
+
+
+
+    </script>
+</body>
+</html>
+```
+
+
+
+
+
+
+
+
+
+### style和class
+
+```
+vue中使用style
+	1. 对象语法
+		<div :style="{color: 'red',font-size: '20px'}"></div>
+	2. 数组语法
+		<div :style="[redStyle,colorStyle]"></div>
+		data(){
+			return {
+				redStyle:{
+					color: 'red',
+				},
+				colorStyle:{
+					font-size: '30px'
+				}
+			}
+		}
+		
+		
+		
+		
+vue中使用class
+	1. 对象写法
+		<div :class="{active:true}"></div>
+		键为类名,值为布尔值
+	2. 数组写法
+		<div :class="[active,four,red]"></div>
+		<div :class="[true ? active : red]"></div>
+		<div v-bind:class="[{ active: isActive }, errorClass]"></div>
+```
+
+
+
+
+
+
+
+
+
+
+
+### 搭建VUE环境
+
+
+
+#### 初始化项目
+
+```
+1. yarn init
+
+2. 创建入口文件 src/index.js
+
+3. 创建页面文件 index.html
+```
+
+
+
+
+
+#### 使用webpack
+
+```
+第一步
+	先卸载掉全局安装的webpack和webpack-cli
+	
+	
+第二步
+	局部安装webpack和webpack-cli
+		npm i  webpack@4.29.4 webpack-cli@3.2.3 -D
+
+第三步
+	安装html-webpack-plugin,打包index.html
+	
+	
+第四步
+	安装clear-webpack-plugin清除打包文件
+	
+	
+第四步
+	安装webpack-dev-server自动编译
+	
+	
+第五步
+	安装npm install babel-loader @babel/core @babel/preset-env编译ES6语法
+	
+	
+第六步
+	安装  css-loader style-loader编译css文件
+	
+	
+第七步
+	安装url-loader,file-loader编译图片资源
+	
+	
+第八步
+	搭建vue的环境
+	npm i vue
+	npm i vue-template-compiler   vue-loader  -D
+	const { VueLoaderPlugin } = require('vue-loader')
+
+    module.exports = {
+      module: {
+        rules: [
+          // ... 其它规则
+          {
+            test: /\.vue$/,
+            loader: 'vue-loader'
+          }
+        ]
+      },
+      plugins: [
+        // 请确保引入这个插件！
+        new VueLoaderPlugin()
+      ]
+    }
+    配置loader和plugin
+    将编译css的loader写为
+    {
+        test:/\.css$/,                 //匹配所有less文件
+        // vue-style-loader是对style-loader的增强
+        use: ['vue-style-loader','css-loader'],
+    },
+    
+    
+    
+第九步
+    引入vue文件时可以省略后缀名,如js一样
+
+        //模块引入解析
+        resolve: {
+        alias:{
+            '@': resolve(__dirname,"src")       //模块路径别名
+        },
+        extensions: ['js','vue'],            //指定那些后缀的模块可以省略
+    }
+```
+
+
+
+
+
+
+
+**注意:**
+
+````
+babel本身不编译ES6的语法
+babel需要基于它的plugin(插件)来实现ES6语法编译
+每一个ES6语法都对应一个babel plugin来编译对应的语法
+一个babel preset包是包含多个常用的babel plugin的集合包
+好处: 便于管理配置
+
+也就是说:babel中有一个包为preset-env,它中包含多个ES6常用语法解析的plugin插件
+		
+````
+
+
+
+
+
+```
+vscode快速搜索包
+	ctrl + k
+	ctrl + n
+```
+
+
+
+
+
+
+
+
+
+```javascript
+import Vue from 'vue'
+import App from './app.vue'
+
+Vue.config.productionTip = false
+
+//第一种方法
+// new Vue({
+//     el:'#root',
+//     render: function (createElement){           //用来渲染组件标签的回调函数
+//         return createElement(App)   //返回<App/>
+//     }//调用render函数得到它返回的组件标签对象
+// })
+
+
+//第二种方法
+new Vue({
+    el:'#root',
+    components:{
+        App
+    },
+    template: '<App/>'
+})
+
+
+
+/*
+    render: 没有问题
+        内部使用vue-template-complilter提前编译好了模板
+
+    template: 有问题
+        不使用vue-template-complilter,就无法编译模板
+        解决: 在package.json中写入 'vue$': 'vue/dist/vue.esm.js'
+            默认引入的是"main": "dist/vue.runtime.common.js",(不带编译器的版本)
+            写入它之后import App from './app.vue'引入的是vue/dist/vue.esm.js(带编译器的版本)
+
+*/
+```
+
+
+
+
+
+
+
+
+
+````
+如果在data中定义属性,如果想要当属性变化时执行,使用监听
+如果没有在data中定义,而是在页面中使用插值,需要使用computed
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 组件间通信
+
+
+
+
+
+**组件间通信基本原则**
+
+```
+1. 不要在子组件中直接修改父组件的状态数据
+2. 数据在哪,更新数据的行为(函数)就应该定义在哪
+```
+
+
+
+
+
+
+
+**vue组件间通信方法**
+
+````
+1.  props
+2.  vue的自定义事件
+3.  消息订阅和发布/事件总线
+4.  slot
+5.  vuex
+````
+
+
+
+
+
+
+
+
+
+#### props
+
+````
+实现父向子,子向父传递
+
+父向子传递
+	<MyComponent name="data"></MyComponent>
+	父组件向子组件传递一个属性,子组件申明并使用
+	
+子向父传递
+	<MyComponent name="fun"></MyComponent>
+	父组件向子组件传递一个函数,子组件申明使用时传递一个属性,函数在父组件调用,此时属性就传递到函数父组件中
+````
+
+
+
+
+
+```
+问题:
+	a. 如果需要向非子后代传递数据必须多层逐层传递
+	b. 兄弟组件之间不能直接props通向,需要借助父组件才可以
+```
+
+
+
+
+
+
+
+
+
+
+
+#### vue的自定义事件
+
+```
+作用: 实现子向父通信
+```
+
+
+
+
+
+**事件处理的理解**
+
+```
+	
+原生的DOM事件
+	当我们在页面中触发了指定事件,比如移入元素,移出元素,会触发指定事件(传入的数据为event),浏览器会去分发事件
+		注意:
+			原生的DOM事件只有浏览器指定的几个事件,事件不能随意创造,也无法传参,回调函数是浏览器执行的
+			
+			
+自定义事件
+	我们使用$on绑定事件监听,事件名可以自己起,也可以传入参数
+	使用emit触发事件,传入参数
+		注意: 触发事件是代码触发,根据你的意愿,在代码中写入触发事件的代码,可以传入参数
+```
+
+
+
+
+
+**API**
+
+```
+vm.$on				绑定事件监听
+vm.$off				解绑事件监听
+vm.emit				分发事件
+vm.$once			监听一次,一次后会移出监听器
+```
+
+
+
+```
+子组件
+	当执行到此段代码,会分发事件,执行事件回调函数,
+	第一个参数: 事件名
+	第二个参数: 参数
+	this.$emit('addTodo',todo)
+```
+
+
+
+```
+父组件
+	//事件回调
+     methods: {
+         addTodo(todo){
+         	this.todos.unshift(todo)
+         },
+        }
+        
+	绑定自定义事件监听
+	/*
+    给header组件绑定自定义事件监听
+    要求: 绑定自定义事件监听和分发事件的组件对象得是同一个
+    为什么要在app组件内绑定header组件的自定义事件监听: 实现子组件向父组件传递属性
+    */
+	this.$refs.header.$on('addTodo',this.addTodo)
+	
+	
+	
+	beforeDestroy(){
+            //解绑自定义事件监听
+            this.$refs.header.$off('addTodo')
+        }
+```
+
+
+
+
+
+
+
+```
+vue的组件对象与vue的关系
+	组件对象不是Vue的实例对象,它是VueComponent的实例
+	组件对象的原型对象时一个vm对象(Vue的实例对象)
+	在组件对象中读取this.xxxx,先去自身上找,找不到再去vm对象上找,找不到再到vue的原型对象上找,最后到object的原型对象找
+	
+	vue的原型对象只有一个,但是组件对象的原型对象是每个组件都有自己的原型对象(vm)
+```
+
+
+
+
+
+
+
+
+
+#### 全局事件总线
+
+```
+借助上面可知,vue的原型对象只有一个,但是每个组件对象的原型对象是不同的vm,而这些不同的vm的原型对象是vue的原型对象
+从这可以得知,组件对象依靠原型链可以找到vue的原型对象,也就是说组件对象有一个共同的原型对象(vue的原型对象)
+
+我们可以在vue的原型对象上创建一个vm,在这个vm上依靠vue的自定义事件来实现各个组件之间的通信
+```
+
+
+
+**操作**
+
+```
+在vue的原型对象上创建一个vm,名为$globalEventBus
+Vue.prototype.$globalEventBus = new Vue()
+```
+
+
+
+```
+在组件对象中绑定自定义事件
+this.$globalEventBus.on(事件名,回调函数)
+```
+
+
+
+```
+在组件对象中分发自定义事件
+this.$globalEventBus.emit(事件名,参数)
+```
+
+
+
+```
+在组件对象中解绑自定义事件
+this.$globalEventBus.off(事件名)
+```
+
+
+
+```
+注意:
+	为什么this中有$globalEventBus?
+		依靠原型链,组件对象中没有,会找他们各自的vm,vm没有,会找到vm共同的原型对象上(vue的原型对象),而我们定义了,所以可以找到
+		
+	为什么在vue的原型对象上创建一个vm?
+		因为vm上可以操作自定义事件
+```
+
+
+
+
+
+
+
+
+
+#### 插槽
+
+```
+普通插槽
+
+父组件
+<Home>
+	<p>默认插槽</p> 
+	//命名插槽
+    <p name="left">插槽左护法</p>
+    <p name="right">插槽右护法</p>
+</Home>
+
+子组件
+    <slot name="right"></slot>
+    <slot name="left"></slot>
+    <slot></slot>
+```
+
+
+
+
+
+```
+具名插槽
+
+父组件
+        <template>
+            <p>默认插槽</p>
+        </template>
+        <template v-slot:left>
+            <p>插槽左护法</p>
+        </template>
+        <template v-slot:right>
+            <p>插槽右护法</p>
+        </template>
+        
+        
+子组件
+    <slot name="right"></slot>
+    <slot name="left"></slot>
+    <slot></slot>
+```
+
+
+
+
+
+````
+后备插槽
+<!-- 后备插槽: 在插槽内部写入内容,如果传入组件在使用组件时传入插槽,就使用传入的插槽,没有传入插槽,使用插槽内部的内容 -->
+<slot name="left">我是默认的插槽左护法</slot>
+````
+
+
+
+```
+作用域插槽
+
+父组件
+<!-- 使用作用域插槽传递过来的props时,需要用与一个变量接住,在插槽名后面写上="变量名"接住,然后即可使用 -->
+<template v-slot:right="user">
+	<p name="right">插槽右护法{{user.user}}{{user.age}}</p>
+</template>
+
+
+子组件
+<!-- 作用域插槽: 如果父组件想使用插槽时同时可以使用子组件的数据,可以在子组件定义插槽时传入一个或多个props -->
+<slot name="right" :user='name' :age="age"></slot>
+```
+
+
+
+
+
+
+
+### mixins
+
+```
+混入:
+	export default {
+        data () {
+            return {
+                msg: '混合数据'
+            }
+        },
+        methods: {
+            log () {
+                console.log('hello',this.msg)
+            }
+        }
+	}
+	
+	    import mixin from './mixins'
+        export default {
+            mixins: [mixin],         // 申明使用混入的对象,同时可以使用多个
+            // data () {
+            //     return {
+            //         // msg: 'App组件的数据'
+            //     }
+            // },
+
+            mounted () {
+                // 如果当前组件没有定义属性msg,就会去mixin中去找,如果当前组件定义了msg,就使用当前组件的msg
+                // 也就会说:    当前组件的属性 > mixin的属性
+                this.log()
+                console.log(this.msg)
+            }
+        }
+```
+
+
+
+
+
+### 动态组件&异步组件
+
+```
+1. 动态组件
+	1. 使用的时候动态加载,性能优化
+	2. <component :is="组件" />
+	
+	
+2. 异步组件
+	常规注册组件: components: {组件名: 组件}
+	异步注册组件: components: {组件名: (resolve,reject)=>{resolve(组件)}}
+```
+
+
+
+
+
+
+
+
+
+
+
+### keep-alive
+
+```
+给组件外套上标签keep-alive,组件切换时不会销毁组件,而是缓存组件,组件内部的数据不会发生变化
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### vue-ajax
+
+
+
+**vue中常用的2个ajax库**
+
+```
+vue-resource
+axios
+```
+
+
+
+
+
+
+
+
+
+#### vue-resource
+
+**使用**
+
+```
+首先,要在全局申明使用vue-resource
+import VueResource from 'vue-resource'
+Vue.use(VueResource)		申明使用,所有组件都会有一个属性$http,方法有get(),post等
+
+
+
+
+//使用vue-resource发送请求
+// this.$http.get('https://api.github.com/search/repositories?q=j&sort=starts')
+// .then(response=>{
+//     const result = response.data
+//     const {name, html_url} = result.items[0]
+//     this.repoName = name
+//     this.repoUrl = html_url
+// })
+// .catch(
+//     error=>{
+//         alert('请求出错')
+//     }
+// )
+```
+
+
+
+
+
+#### axios
+
+**使用**
+
+````
+//使用axios发送请求
+this.$http.get('https://api.github.com/search/repositories',{params:{q:'j',sort:'starts'}})
+.then(response=>{
+    const result = response.data
+    const {name, html_url} = result.items[0]
+    this.repoName = name
+    this.repoUrl = html_url
+})
+.catch(
+    error=>{
+    	alert('请求出错')
+    }
+)
+
+````
+
+
+
+
+
+
+
+
+
+#### 处理跨域
+
+```
+在webpack.config.js中的devserver中输入此属性
+
+
+
+proxy: {
+            //匹配处理以/api开头语的请求
+            "/api": {
+              target: "http://localhost:5000",          //转发的目标地址
+              pathRewrite: {"^/api" : ""},              //在转发请求前去除路径中的/api
+              changeOrigin: true                        //支持协议名的跨域
+            }
+        }
+```
+
+
+
+
+
+
+
+
+
+#### 解决vue环境无法使用async,await
+
+````
+ES6的新语法
+	新的语法: let  const 箭头函数
+	
+	
+新的API
+	Map  Promise   arr.map()
+	
+@babel/preset-env它只能编译新的语法,不能处理新的API
+````
+
+
+
+**解决**
+
+````
+npm i @babel/polyfill  -D
+
+@babel/polyfill的依赖包
+   "core-js": "^2.6.5"		: 提供es5/es6/es7的新的API的实现
+   "regenerator-runtime"	: es8的async/await
+   
+   
+   
+使用:
+	在入口文件引入使用
+		import '@babel/polyfill'
+		
+	问题: 太大了
+	解决: 按需引入
+	
+	
+	
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### vue-router
+
+````
+实现SPA页面的库
+````
+
+
+
+
+
+
+
+#### 基本使用
+
+```javascript
+/*
+        定义路由器对象
+*/
+
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+import About from '../pages/About.vue'
+import Home from '../pages/Home.vue'
+
+//申明使用vue插件
+Vue.use(VueRouter)
+
+
+//向外暴露路由器对象
+export default new VueRouter({
+
+    //应用中所有路由
+    routes: [
+        {
+            path: '/about',
+            component: About,
+        },
+        {
+            path: '/home',
+            component: Home,
+        },
+        {
+            // 自动跳转
+            path: '/',
+            component: About
+        }
+    ]
+})
+```
+
+
+
+
+
+
+
+````
+在index.js中引入路由器,并注册路由器
+
+new Vue({
+    el:'#root',
+    render: h => h(App),
+    router:router,          ///注册路由器
+})
+
+````
+
+
+
+
+
+```
+<!-- 路由链接 -->
+<router-link to="/about" class="list-group-item">About</router-link>
+<router-link to="/home" class="list-group-item">Home</router-link>
+
+
+router-link:
+	路由链接,当点击时,跳转到to所指定的路由中, 它最终会被解析成a标签
+	
+	
+	
+router-view:
+	在此标签中显示当前路由
+	<router-view></router-view>
+	
+	
+.router-link-active:
+	当前显示的组件所拥有的类名,在这个类名中可以指定当前选中类的样式
+```
+
+
+
+
+
+
+
+
+
+
+
+#### 嵌套路由
+
+```javascript
+/*
+        定义路由器对象
+*/
+
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+import About from '../pages/About.vue'
+import Home from '../pages/Home.vue'
+import Messgae from '../pages/Message.vue'
+import News from '../pages/News.vue'
+
+//申明使用vue插件
+Vue.use(VueRouter)
+
+
+//向外暴露路由器对象
+export default new VueRouter({
+
+    //应用中所有路由
+    routes: [
+        {
+            path: '/about',
+            component: About,
+        },
+        {
+            path: '/home',
+            component: Home,
+            //嵌套路由
+            children: [
+                {
+                    path: 'news',
+                    component: News
+                },
+                {
+                    path: '/home/message',          //path左边的/代表项目的根路径,不加/代表当前路径
+                    component: Messgae
+                },
+                // 自动跳转
+                {
+                    path: '',
+                    redirect: '/home/news'  
+                }
+            ]
+        },
+        {
+            // 自动跳转
+            path: '/',
+            redirect: About
+        },
+
+    ]
+})
+```
+
+
+
+
+
+```javascript
+在路由组件中引入路由
+
+
+<template>
+  <div>
+    <h2>Home</h2>
+    <ul class="nav nav-tabs">
+      <li>
+        <router-link to="/home/news">News</router-link>
+      </li>
+      <li>
+        <router-link to="/home/message">Mesage</router-link>
+      </li>
+    </ul>
+    <!-- 在此显示当前路由组件 -->
+    <router-view></router-view>
+  </div>
+</template>
+```
+
+
+
+
+
+
+
+
+
+
+
+#### 路由组件对象的生命周期
+
+```
+路由组件对象在访问对应的路由路径时才会创建对象
+    从A组件跳转到B组件对象: 销毁A组件对象,创建B组件对象
+    从B组件跳转到A组件对象: 销毁B组件对象,创建A组件对象
+	从A组件跳转到A组件对象(只是改变了参数): A组件对象不会销毁重新创建
+	
+	
+问题: 如果是参数改变了,会导致无法刷新页面
+解决办法: 监视$route
+    watch: {
+        '$route'(to,from){          //to就是$route的最新值
+            this.show(to.params.mid * 1)
+        }
+    },
+```
+
+
+
+
+
+
+
+````
+atguigu-units
+````
+
+
+
+
+
+
+
+
+
+
+
+#### 向路由组件传入参数
+
+
+
+```
+第一种方法:
+	params/query: <router-link to="/home/news/123/abc?zzz=1234"></router-link>
+	
+	
+第二种方法:
+	将请求的参数映射为props
+	{
+        path:'/home/message/detail/:mid',
+        component: MessageDetail,
+        //props: true             //将params参数映射为props传递给路由组件
+        props: (route)=>({          //可以映射params参数和query参数
+            mid: route.params.mid, 
+            title: route.query.title
+        })
+	}
+	
+	
+	
+第三种方法
+	变相props
+	<router-view msg="abc"></router-view>
+	只要是当前router-view管理的组件,都会有一个属性msg,值为abc
+```
+
+
+
+
+
+
+
+
+
+#### 命名路由
+
+````
+在定义路由时
+{
+    name:'detail',					//指定路由名
+    path:'/home/message/detail/:mid',
+    component: MessageDetail,
+    //props: true             //将params参数映射为props传递给路由组件
+    props: (route)=>({          //可以映射params参数和query参数
+        mid: route.params.mid, 
+        title: route.query.title
+    })
+}
+
+
+可以传入params和query参数
+<router-link :to="{name: 'detail',params:{mid:m.id},query:{title:m.title}}">{{m.title}}</router-link>
+````
+
+
+
+
+
+
+
+
+
+#### 编程式导航
+
+````
+push
+replace
+back
+````
+
+
+
+
+
+**使用方法**
+
+````
+            pushShow(messgae){
+                // 编程式路由导航
+                // this.$router.push(`/home/message/detail/${messgae.id}?title=${messgae.title}`)
+                this.$router.push({name: 'detail',params:{mid:messgae.id},query:{title:messgae.title}})
+            },
+            replaceShow(messgae){
+                // 编程式路由导航
+                this.$router.replace(`/home/message/detail/${messgae.id}?title=${messgae.title}`)
+            },
+````
+
+
+
+
+
+
+
+
+
+
+
+#### keep-alive
+
+````
+路由组件对象默认的生命周期: 切换时就会死亡, 切换回来就会重新创建
+````
+
+
+
+````
+            <!-- 
+              默认缓存的是所有队员的路由组件对象
+                使用include/exclude来指定缓存的组件对象
+             -->
+            <keep-alive include="home">
+              <!-- 显示当前路由组件 -->
+              <router-view msg="abc"></router-view>
+            </keep-alive>
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### history模式
+
+````
+hash模式			默认,url: http://localhost:3000/#/about
+history模式		url: http://localhost:3000/about
+````
+
+
+
+
+
+**问题**
+
+```
+history刷新页面返回的是404?
+	原因:
+		hash模式: 刷新页面,url地址为 http://localhost:3000/#/about/home
+				 请求后台,给后台的url地址为 http://localhost:3000/
+				 注意: #/about/home不会交给后台服务器
+				 请求后台地址为http://localhost:3000/,后台返回给你的是打包后的index.html
+				 index.html文件内容为:
+				 <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <link rel="stylesheet" href="./static/css/base.css">
+                        <link rel="stylesheet" href="./static/css/bootstrap.css">
+                        <title>VUE Component</title>
+                        <style>
+                            /* 当前选中的路由的样式 */
+                            .router-link-active{
+                                color: red !important;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div id="root">
+
+                        </div>
+                    <script type="text/javascript" src="static/js/bundle.js"></script></body>
+                    </html>
+                  其中bundle.js就会将#/about/home解析为前台路由路径
+                  
+                  
+                  
+		history模式: 刷新页面,url地址为: http://localhost:3000/about/home
+					请求后台,url地址为: http://localhost:3000/about/home
+					此时,请求的路径后台没有,无法处理,返回404
+					
+					
+	解决:
+		在某个路由路径下刷新,服务器能返回index页面
+	
+	方法:
+		第一步: 在webpack.config.js的devServer中写入historyApiFallback: true(请求404时返回index页面)                     第二步: 在webpack.config.js的output中写入publicPath: '/',  
+				原因: 在请求地址为http://localhost:3000/home/about下刷新,请求的index.html中,引用的文件路径为:
+						http://localhost:3000/home/about/a
+						http://localhost:3000/home/about/b
+						加上publicPath: '/',会将引用的文件在根路径下查找
+```
+
+
+
+
+
+
+
+#### $route和$router的区别
+
+```
+$router是路由器对象,里边包含路由跳转的方法
+$route是路由对象,里面包含当前路由组件下所有的路由信息
+```
+
+
+
+
+
+
+
+### mint-ui
+
+```
+npm  i mint-ui
+```
+
+
+
+
+
+
+
+#### 按需引入
+
+```
+npm install babel-plugin-component -D
+```
+
+
+
+使用
+
+```
+在webpack.config.js中的实现js语法转换的option中写入
+
+
+plugins: [          //配置预设包之外的插件包
+                        [
+                            "babel-plugin-component",       //插件名
+                            {
+                              "libraryName": "mint-ui",     //针对mint-ui实现按需引入打包
+                              "style": true                 //自动打包组件对应的样式
+                            }
+                        ]
+                    ]
+```
+
+
+
+
+
+
+
+````
+详细使用查看mint-ui官方文档
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### vuex
+
+```
+实现多组件状态共享
+```
+
+
+
+
+
+#### state
+
+````
+vuex管理的状态对象
+它是唯一的
+````
+
+
+
+
+
+
+
+#### mutations
+
+```
+包含多个直接更新state的方法(回调函数)的对象
+谁来触发: action中的commit
+```
+
+
+
+
+
+
+
+
+
+#### actions
+
+```
+包含多个事件回调函数的对象
+```
+
+
+
+
+
+
+
+#### getters
+
+```
+包含多个计算属性的方法
+```
+
+
+
+
+
+
+
+
+
+
+
+#### 使用
+
+````javascript
+/*
+    vuex最核心的管理对象store
+
+*/
+
+
+
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+
+//申明使用vuex插件
+Vue.use(Vuex)
+
+
+const state = {
+    count: 1,           //初始化状态数据
+}
+
+//包含n个用于直接更新状态数据方法的对象
+//在mutations中的函数只是更改状态中的数据,不做其他事
+const mutations = {
+    INCREMENT(state){
+        state.count++
+    },
+    DECREMENT(state){
+        state.count--
+    },
+}       
+
+//包含n个用于间接更新状态数据方法的对象
+//在actions中的函数可以包含逻辑代码或异步代码
+const actions = {
+    // increment({commit}){
+    //     commit('INCREMENT')
+    // },
+    // decrement({commit}){
+    //     commit('DECREMENT')
+    // },
+    incrementIfOdd({commit,state}){
+        if(state.count%2 === 1)commit('INCREMENT')
+    },
+    incrementAsync({commit}){
+        setTimeout(()=>{commit('INCREMENT')},1000)
+    }
+}
+
+//包含n个基于state数据的getter的计算属性的方法的对象
+const getters = {
+    //当state发生改变时,触发
+    eventOdd(state){
+        return state.count % 2 === 1 ?'奇数' : '偶数'
+    }
+}
+
+
+export default new Vuex.Store({
+    state,
+    mutations,
+    actions,
+    getters
+})
+````
+
+
+
+
+
+
+
+```javascript
+import '@babel/polyfill'
+
+import Vue from 'vue'
+import App from './App.vue'
+
+import store from './store'
+
+
+Vue.config.productionTip = false
+
+
+//第一种方法
+new Vue({
+    el:'#root',
+    render: h => h(App),
+    store,          //配置store,所有的组件都可以通过$store访问$store对象
+})
+
+
+
+```
+
+
+
+
+
+
+
+```javascript
+<template>
+   <div>
+     <!-- <p>cilcked {{$store.state.count}} times, count is {{$store.getters.eventOdd}}</p> -->
+     <p>cilcked {{count}} times, count is {{eventOdd}}</p>
+     <button @click="increment">+</button>
+     <button @click="decrement">-</button>
+     <button @click="incrementIfOdd">incrent if odd</button>
+     <button @click="incrementAsync">increment asycn</button>
+
+   </div>
+</template>
+
+<script>
+    import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'       //引入方法
+    export default {
+
+        //一般写法
+        // computed: {
+        //   count(){
+        //     return this.$store.state.count
+        //   },
+        //   eventOdd(){
+        //     return this.$store.getters.eventOdd
+        //   }
+        // },
+
+        //简化写法
+        computed: {
+          ...mapState(['count']),  //mapState是一个函数,返回一个函数{count (){return this.$store.state['count']}}
+          ...mapGetters(['eventOdd'])   //eventOdd是一个函数,返回一个函数{eventOdd (){return this.$store.state['eventOdd]}}
+        },
+
+
+
+
+
+
+        //一般写法
+        // methods: {
+        //   increment(){
+        //     this.$store.commit('INCREMENT')
+        //   },
+        //   decrement(){
+        //     this.$store.commit('DECREMENT')
+        //   },
+        //   incrementIfOdd(){
+        //     this.$store.dispatch('incrementIfOdd')
+        //   },
+        //   incrementAsync(){
+        //     this.$store.dispatch('incrementAsync')
+        //   }
+        // }
+
+
+        //简化写法
+        methods: {
+          ...mapMutations({
+            increment: 'INCREMENT',
+            decrement: 'DECREMENT'
+          }),
+          ...mapActions(['incrementIfOdd','incrementAsync'])
+        }
+
+        /*
+          store: 组件与vuex通信的一个桥梁对象
+
+        
+        */
+    }
+</script>
+
+<style scoped>
+
+</style>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### 解释
+
+```
+state:  保存状态的对象
+mutations: 直接修改state中状态的对象,对象中有许多函数,这些函数直接并且只能修改state中的状态
+actions: 间接修改state中的状态的对象,对象中有很多函数,函数中调用mutations的方法间接修改,可以在函数中做其他事(逻辑判断和异步)
+getters: 通过state的状态计算得到的对象,监视state
+```
+
+
+
+
+
+````
+组件对象如何获取state中的状态?
+	方法1: $store.state.xxx
+	方法2: ...mapState(['xxx'])
+	
+	
+	
+	
+组件对象如何获取getters中的属性
+	方法1: $store.getters.xxx
+	方法2: ...mapGetters(['xxx'])
+	
+
+
+组件对象如何直接修改状态?
+	$store.commit('mutations中的函数名')
+	mapMutations()
+	
+	
+	
+组件对象如何间接修改状态?
+	$store.dispatch('actions中的函数名')
+	mapActions()
+	
+
+
+什么情况下直接修改状态?什么情况下间接修改状态?
+	当我们只需要修改状态,不需要做其他事情时,我们使用mutations的方法直接修改状态
+	当我们在修改状态的同时需要做一些其他的事情,比如: 逻辑判断,发送ajax请求,修改变量,定时器等,需要使用actions的方法间接修改状态
+````
+
+
+
+![vuex结构图](C:\Users\86188\Pictures\Camera Roll\vuex结构图.png)
+
+
+
+
+
+
+
+
+
+
+
+### 源码分析
+
+
+
+#### 文档碎片
+
+````
+
+        //6. DocumentFragment               文档碎片(在内存中的一个容器,如果使用普通遍历修改li,会一遍一遍修改li并渲染到页面上,效率不高,我们可以直接在容器中修改完,再直接添加到页面上,效率高)
+
+        //创建一个fragment容器
+        const fragment = document.createDocumentFragment()
+        const div = document.getElementById('app')
+        //将div中所有的子节点转移到fragment中
+
+        let child
+        //将div中的每一个第一个节点给child,如果赋值成功,执行{}的代码,将child给fragment,由于一个节点只能有一个父节点,所以div中的所有子节点都会到fragment中
+        while(child=div.firstChild){
+            fragment.appendChild(child)
+        }
+        //处理fragment中的li
+        //children会获取指定节点的子元素,返回一个伪数组,然后使用Array的方法将伪数组转换为真数组,进行遍历
+        let lis5 = Array.prototype.slice.call(fragment.children[0].children)
+        lis5.forEach((li)=>{
+            li.innerHTML = 'laidasnivivd'
+        })
+
+        //将处理好的fragment添加到div
+        div.appendChild(fragment)
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### 数据代理
+
+```
+VUE数据代理: data对象的所有属性的操作(读/写)由vm对象来代理操作
+好处: 通过vm对象就可以方便的操作data中的数据
+实现
+		//遍历data中的属性
+	    Object.keys(data).forEach(function(key) {
+	    	//给每个属性实现数据代理
+            Object.defineProperty(me, key, {
+                configurable: false,        //不可以重新定义
+                enumerable: true,           // 可以枚举
+                // 当vm.name读取数据时自动调用
+                get: function proxyGetter() {
+                    //读取并返回data中对应的属性值
+                    return me._data[key];
+                },
+                //当vm.name = value设置数据时自动调用
+                set: function proxySetter(newVal) {
+                    //将最新的值保存到data对应的属性上
+                    me._data[key] = newVal;
+                }
+            });
+    	});
+    	
+    	
+所有对象有包含get/set方法从而获取/修改数据
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### vue脚手架
+
+````
+npm  i  @vue/cli  -g
+````
+
+
+
+
+
+
+
+
+
+#### stylus
+
+```
+脚手架中使用
+	npm i stylus stylus-loader@3.0.2
+	
+	
+	
+	
+<style lang="stylus">		//申明使用
+
+  #app
+    color red 
+    h1
+      font-size 50px
+      
+</style>
+```
+
+
+
+```
+stylus语法介绍
+	特点:
+		1. 简写大括号
+		2. 简写分号
+		3. 样式嵌套,层级分明
+```
+
+
+
+
+
+
+
+
+
+#### 移动端适配
+
+````
+为什么要适配
+	让网页的内容在不同的机型上呈现的效果一致(等比)
+	
+如何适配
+	1. viewport适配
+		1. 视觉视口: 所见即所得,屏幕的大小
+		2. 布局视口: 网页的宽度
+		3. 适配: 视觉视口 === 布局视口
+		4. 实现: <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+		
+		
+	2. rem适配
+		根据设置根节点字体的大小设置rem
+````
+
+
+
+```javascript
+        function remRefresh(){
+            //1. 获取屏幕的宽度
+            let clientWidth = document.documentElement.clientWidth
+
+            //2. 将屏幕的宽度等分, 目的: 降低单位rem值的大小,便于换算,提高精确度
+            let rem = clientWidth / 10
+
+            //3. 设置根节点字体的大小
+            document.documentElement.style.fontSize = rem + 'px'
+
+            //4. 设置body字体大小, 目的: 由于给根节点设置字体大小,子节点会继承,所有给body设置字体大小,盖住根节点的字体大小
+            document.body.style.fontSize = '16px'
+
+        }
+        //当页面显示时调用
+        window.addEventListener('pageshow',()=>{
+            remRefresh()
+        })
+
+        let timeoutId
+        window.addEventListener('resize',()=>{
+            // 防抖
+            timeoutId && clearInterval(timeoutId)
+            timeoutId = setTimeout(()=>{
+                remRefresh()
+            },2000)
+        })
+```
+
+
+
+
+
+**淘宝适配方案**
+
+```
+npm i postcss-px2rem lib-flexible
+
+	lib-flexible  淘宝适配方案
+	postcss-px2rem    将项目中的px转换为rem
+在项目的index.js文件中引入 import 'lib-flexible/flexible'
+```
+
+
+
+
+
+````
+postcss-px2rem的使用:
+	在vue.config.js的model.exports中
+	css: {
+	        loaderOptions: {
+	            css: {},
+	            postcss: {
+	                plugins: [
+	                    require('postcss-px2rem')({
+	                    	 //lib-flexible 将屏幕分成10份(10rem)，这里设置表示设计图宽度为10*37.5=375px
+           					 // 配置成 37.5 是为了兼容 没有适配 rem 布局的第三方 ui 库
+	                        remUnit: 75
+	                    })
+	                ]
+	            }
+	        }
+	    },
+
+````
+
+
+
+
+
+
+
+#### 在vue项目实现适配
+
+````
+在项目的index.js文件中引入 import 'lib-flexible/flexible'
+
+
+
+	在vue.config.js的model.exports中
+	css: {
+	        loaderOptions: {
+	            css: {},
+	            postcss: {
+	                plugins: [
+	                    require('postcss-px2rem')({
+	                    	 //lib-flexible 将屏幕分成10份(10rem)，这里设置表示设计图宽度为10*37.5=375px
+           					 // 配置成 37.5 是为了兼容 没有适配 rem 布局的第三方 ui 库
+	                        remUnit: 75
+	                    })
+	                ]
+	            }
+	        }
+	    },
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### 路由
+
+```
+核心概念
+	1. 生成路由器:		const router = new VueRouter()
+	2. 安装路由器:		new Vue({router})
+	3. 管理路由:		 new VueRouter({routers})   routers = [{path:'路由路径',component:'路由组件'}] 
+	4. 请求路由:		 路由链接 <router-link to="路由路径"></router-link>
+	5. 显示路由组件		<router-view></router-view>
+```
+
+
+
+
+
+
+
+
+
+
+
+#### vuex
+
+````
+核心概念
+	store对象
+		1. state:  多个组件共享的数据,用于集中管理
+		2. mutations:  本质是一个函数, 用于直接修改state的状态数据, 但是只能处理同步数据,不能处理异步数据
+		3. actions:  本质是一个函数, 作用: 1. 获取异步数据  2. 调用mutations同时将异步数据交给mutations
+		4. getters: 函数, 作用: 同vue的computed一样1,依赖于原数据(state数据)今夕计算得到新的数据
+		5. dispatch: 函数,调用action
+		
+	组件同Vuex交互
+		1. mapState, 在computed中使用
+			1. 	...mapState(['指定的state数据'])
+			2.  ...mapState({key:state=>state.key})
+````
+
+
+
+
+
+
+
+
+
+#### deep
+
+```
+stylus中的deep
+
+修改第三方样式库的样式
+使用deep,深度选择器
+作用: vue组件中，我们会在style里设置scoped，这个时候在组件里面在写样式是对子组件是没有效果的，如果想让设置的样式对所以子组件都			生效，这个时候得使用 /deep/ 深度选择器。
+```
+
+
+
+
+
+
+
+
+
+#### vuex刷新丢失
+
+````
+原因:
+	vuex的数据保存在运行的内存中,刷新页面会重新初始化整个应用,从而重新分配内存
+````
+
+
+
+```
+解决方法:
+	1. 当页面刷新的时候重新发请求获取数据,存放到vuex中
+	2. 利用页面刷新的事件 + sessionStorage	
+		1. 在unload事件调用时将数据保存到sessionStorage
+		2. 在组件重新加载后将数据取出保存到sessionStorage中
+```
+
+
+
+
+
+
+
+
+
+#### 模拟数据
+
+````
+mockjs
+````
+
+
+
+
+
+
+
+
+
+#### 解决滚动条和轮播图
+
+```
+        watch: {
+            goods () {
+                this.$nextTick(()=>{
+                    this._initScroll()
+                })
+            }
+        }
+```
+
+
+
+
+
+
+
+#### 响应式属性和非响应式属性
+
+````
+响应式属性: 组件初始化的时候就有,属性改变时页面中用到该属性的地方也会刷新
+非响应式属性: 组件初始化时没有,属性改变页面不会刷新
+````
+
+
+
+
+
+
+
+
+
+#### vuex可以改变两个组件共同的值
+
+````
+当我们将父组件的值传入给子组件时,
+子组件通过vuex改变值时,不仅子组件的值会发生变化,父组件的值也会发生变化
+如果想让值发生变化时页面中所用的地方也发生变化(不是响应式属性时),使用vue.set来将值转为响应式属性
+````
+
+
+
+```
+需要练习
+```
+
+
+
+```
+验证结果
+	当我们的父组件往子组件传入props时,子组件修改通过vuex修改父组件传入的值
+	如果父组件传入的是响应式属性,当我们在vuex中修改时,父,子组件都会的值都会修改,页面也会渲染
+	如果不是响应式属性,修改时,父子组件不会修改,页面也不会渲染,
+	解决办法: 使用vue.set将值进行转换即可
+```
+
+
+
+**实现**
+
+app.vue
+
+```JavaScript
+<template>
+    <div>
+        <div>{{a.a}}</div>
+        <div>{{b.shi}}</div>
+        <Hello :a="a" :b="b"/>
+    </div>
+</template>
+
+<script>
+    import {mapState} from 'vuex'
+    import Hello from './components/hello'
+    export default{
+
+        data () {
+            return {
+                b : {
+                    shi :  '我是不是时怠速'
+                }
+            }
+        },
+
+        mounted () {
+
+        },
+        computed: {
+            ...mapState({
+                a : state => state.a.init
+            })
+        },
+        components: {
+            Hello
+        }
+    }
+
+
+</script>
+
+<style scoped>
+  
+</style>
+```
+
+
+
+hello.vue
+
+```javascript
+<template>
+    <div>
+        {{a.a}}
+        {{b.shi}}
+        <button @click="btn">点我触发事件</button>
+        <button @click="add">jiajiajia</button>
+        <button @click="del">触发醉红颜的</button>
+    </div>
+</template>
+
+<script>
+    export default {
+        props: {
+            a : {
+                type: Object,
+                required: true
+            },
+            b : {
+                type: Object
+            }
+        },
+
+        methods: {
+            btn () {
+                this.$store.commit('changeA',this.a)
+            },
+
+            add () {
+                this.$store.commit('add',this.a)
+            },
+
+            del () {
+                this.$store.commit('del',this.b)
+            }
+        }
+
+    }
+</script>
+
+<style>
+
+</style>
+```
+
+
+
+vuex
+
+```javascript
+
+import Vue from 'vue'
+
+
+const state = {
+    init: {
+        a : '我是一个帅哥'
+    }
+}
+
+
+const mutations = {
+   // 直接对值进行修改即可
+    changeA (state,a) {
+        Vue.set(a,'a',121212)
+
+        // a = '你真的是一个帅哥吗?????'
+    },
+
+    add (state,a) {
+        a.a++
+    },
+
+    del (state,b) {
+        b.shi = 'aaabbabababaaba'
+    }
+}
+
+
+
+const actions = {
+
+}
+
+
+
+const getters = {
+
+}
+
+
+export default {
+    state,
+    mutations,
+    actions,
+    getters
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+#### 项目打包时的优化操作
+
+```
+1. 实现路由懒加载
+2. 关闭映射文件的生成
+```
+
+
+
+````
+// 常规引入路由组件的方式
+// import Msite from '../pages/Msite/Msite.vue'
+// import Order from '../pages/Order/Order.vue'
+// import Search from '../pages/Search/Search.vue'
+// import Profile from '../pages/Profile/Profile.vue'
+// import Login from '../pages/Login/Login.vue'
+// import Shop from '../pages/Shop/Shop.vue'
+
+
+//路由组件懒加载 : ES10     import函数
+//  大大加快用户进入页面的速度
+const Msite = () => import('../pages/Msite/Msite.vue')
+const Order = () => import('../pages/Order/Order.vue')
+const Search = () => import('../pages/Search/Search.vue')
+const Profile = () => import('../pages/Profile/Profile.vue')
+const Login = () => import('../pages/Login/Login.vue')
+const Shop = () => import('../pages/Shop/Shop.vue')
+
+````
+
+```
+实现组件懒加载之前,打包项目js会生成两个js文件,其中一个js文件中包含所有组件的js代码
+
+实现组件懒加载之后,每懒加载一个组件,都会在打包后生成一个js文件,js文件有当前组件所有的js代码,当我们打开网页时,会加载当前页面的组件的js文件,不会一次加载所有组件共同的js文件
+
+```
+
+
+
+
+
+#### 正向代理和反向代理
+
+```
+正向代理: 代理在前端
+反向代理: 代理在后端
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### 切换语言
+
+```
+yarn add vue-i18n
+```
+
+
+
+实现
+
+**在src下创建文件为i18n.js**
+
+```javascript
+import Vue from 'vue'
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n)
+
+function loadLocaleMessages () {
+  const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
+  const messages = {}
+  locales.keys().forEach(key => {
+    const matched = key.match(/([A-Za-z0-9-_]+)\./i)
+    if (matched && matched.length > 1) {
+      const locale = matched[1]
+      messages[locale] = locales(key)
+    }
+  })
+  console.log(messages)
+  return messages
+}
+
+export default new VueI18n({
+  locale: localStorage.getItem('locale_key') || process.env.VUE_APP_I18N_LOCALE || 'en',
+  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
+  messages: loadLocaleMessages()
+})
+
+```
+
+
+
+````javascript
+import Vue from 'vue'
+import 'lib-flexible/flexible'
+import {Button} from 'mint-ui'
+//import 'mint-ui/lib/style.css'
+import App from './App.vue'
+
+import router from './router'
+import store from './vuex'
+import './veeValidate'
+
+import i18n from './i18n'
+
+//全局引入api文件
+import * as API from './api'
+Vue.prototype.$API = API          //使用方法: this.$API.请求方法
+
+
+// 引入mock
+import './mock/mockServer'
+
+import GshopHeader from './components/GshopHeader/GshopHeader.vue'
+// 全局注册组件
+Vue.component('GshopHeader',GshopHeader)
+Vue.component(Button.name,Button)
+
+Vue.config.productionTip = false
+
+// new Vue({
+//   render: h => h(App),
+// }).$mount('#app')
+
+new Vue({
+  el: '#app',
+  components:{
+    App
+  },
+  template: '<App/>',
+  router,
+  store,
+  i18n
+})
+
+````
+
+
+
+```
+在src创建文件夹locales
+文件夹中创建json文件,json文件中包含每一个需要转换的字的变量
+在组件中使用{{$t('变量')}}来实现
+```
+
+
+
+````
+1). 搭建项目
+	a. 基于vue脚手架3创建的项目
+	b. 引入vue-i18n
+		vue add i18n
+		根据提示依次指定: zh_CN --> zh_CN --> n
+2). 实现应用国际化: 支持多语言显示
+	a. 创建/修改国际化的message文件
+		src/locales/zh_CN.json: 
+			{
+				"message": "你好, 国际化 !!"
+			}
+		src/locales/en.json
+			{
+				"message": "hello i18n !!"
+			}
+	b. 在组件中读取当前应用指定locale的message
+		$t('message')
+	c. 读取/设置当前应用的locale
+		读取: this.$i18n.locale
+		更新: this.$i18n.locale = 'en' // 一旦更新整个应用中所有的message都自动更新为en的版本
+	d. 保存/读取当前设置的locale
+		保存: localStorage.setItem('locale_key', 'en')
+		读取: locale: localStorage.getItem('locale_key')  // src/i18n.js
+````
+
+
+
+
+
+
+
+
+
+
+
+#### vue-scroller
+
+```
+yarn add vue-scroller
+import VueScroller from 'vue-scroller'
+Vue.user(VueScroller)
+
+
+获取scroller的实例
+
+this.$refs.scroller.
+		triggerPullToRefresh()			触发下拉刷新的回调
+		finishPullToRefresh()			停止下拉刷新
+		finishInfinite()				停止上拉刷新,如果传入true,就会出现没有数据了,传入false,代表还有
+```
+
+
+
+
+
+
+
+#### 实现页面左右滑动更新组件
+
+```
+nav
+	1.更新高亮的nav内容
+	        this.nowIndex = this.$route.path === '/one' ? 0 : this.$route.path === '/two' ? 1 : this.$route.path === '/three' ? 2 : this.$route.path === '/four' ? 3 : this.$route.path === '/five' ? 4 : 0;
+	判断当前显示的组件是哪一个,然后使他的高亮
+	
+	2.当滑动页面时,通过swiper发送的下标,执行以下操作
+		1. 使其高亮
+		2. 路由跳转
+		
+	3.点击nav时,将下标发给swiper,使swiper滚动,当swiper滚动时,会更新路由链接
+```
+
+
+
+
+
+
+
+#### 实现7天免登陆
+
+```
+1、第一次登录的时候，前端调后端的登陆接口，发送用户名和密码
+
+2、后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token
+
+3、前端拿到token，将token存储到localStorage和vuex中，并跳转路由页面
+
+4、前端每次跳转路由，就判断 localStroage 中有无 token ，没有就跳转到登录页面，有则跳转到对应路由页面
+
+5、每次调后端接口，都要在请求头中加token
+
+6、后端判断请求头中有无token，有token，就拿到token并验证token，验证成功就返回数据，验证失败（例如：token过期）就返回401，请求头中没有token也返回401
+
+7、如果前端拿到状态码为401，就清除token信息并跳转到登录页面
+```
+
+
+
+
+
+
+
+#### 刷新页面数据不丢失
+
+```
+将数据保存到localStorage中
+```
+
+
+
+
+
+
+
+
+
+#### vue重写数组
+
+```
+  'push',
+  'pop',
+  'shift',
+  'unshift',
+  'splice',
+  'sort',
+  'reverse'
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 微信小程序
+
+
+
+### 数据绑定
+
+```
+小程序
+	1. data中初始化数据
+	2. 修改数据: this.setData()
+		注意: 修改数据是同步的
+	3. 事件流: 单项
+		
+		
+vue
+	1. data中初始化数据
+	2. 修改数据: this.key = value
+	3. 事件流: 单项 , 但是数据绑定为双向
+	
+	
+react
+	1. state中修改数据
+	2. 修改数据: this.setState()
+		注意: 修改数据是异步的
+	3. 事件流: 单项
+```
+
+
+
+
+
+
+
+```
+如何向事件对象传参
+id
+data-id
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 回顾
+
+
+
+
+
+### call,apply,bind
+
+```
+call,apply
+	调用函数,指定函数中的this为第一个参数的值
+bind
+	返回一个新的函数,函数内部会调用原来的老的函数,
+	新的函数this指向window
+	老的函数this指向bind方法第一个参数的值
+	注意: 如果obj为null/undefined,this为window
+```
+
+
+
+
+
+
+
+
+
+````
+当在项目中下载webpack后
+如果运行webpack,会显示没有该指令,因为在项目中没有配置
+此时为  npx webpack 
+
+实时监视项目改动,然后自动编译打包(打包到硬盘中),但是不会自动刷新浏览器
+  npx  webpack  --watch
+  
+ webpack-dev-server
+ 	实时监视项目改动,自动编译到内存中,会刷新浏览器
+````
+
+````
+webpack为什么局部下载
+	防止多个项目需要使用不同版本的webpack,导致出错
+````
+
+```
+npx是查找局部的指令
+npm是查找全局的指令
+如果项目中没有在package.json中配置局部的指令,那么使用npm就会报错,只能使用npx
+如果项目中配置了指令,就可以使用npm
+```
+
+
+
+
+
+
+
+
+
+```
+原型对象的老大就是Object
+Object后面就是null
+```
+
+
+
+
+
+
+
+
+
+### 监听手机物理返回键
+
+````
+window.addEventListener('popstate',()=>{
+            this.$router.push('/login')
+          })
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## websocket
+
+```
+websocket是基于http的一种新的网络协议,它实现了浏览器和服务器全双工通信
+	全双工: 客户端可以主动发数据给服务器,服务器可以主动发数据给客户端
+	websocket是持久协议
+	http是非持久协议
+	应用场景: 实时推送信息,聊天,客服咨询等
+```
+
+
+
+
+
+
+
+### 基本使用
+
+
+
+```
+使用
+	let socket = new WebSocket(url,options)
+```
+
+
+
+
+
+**websocket事件**
+
+| open    | 连接建立时触发             |
+| ------- | -------------------------- |
+| message | 客户端接收服务器数据时触发 |
+| error   | 通信发生错误时触发         |
+| close   | 连接关闭时触发             |
+
+
+
+
+
+**websocket方法**
+
+| send()  | 使用连接发送数据 |
+| ------- | ---------------- |
+| close() | 关闭连接         |
+
+
+
+
+
+
+
+
+
+
+
+
+
+### node中使用
+
+```
+yarn add nodejs-websocket
+```
+
+```javascript
+const ws = require('nodejs-websocket')
+const PORT = 3000
+
+// 创建一个server
+
+// 每次只有有用户连接,函数就会执行,会给当前连接的用户创建一个connect对象
+const  server = ws.createServer(conn => {
+    console.log('有用户连接上来了')
+
+    // 每当接收到用户传递来的数据,这个text事件就会触发
+    conn.on('text', data => {
+        console.log('接收到用户传递来的数据',data)
+        // 给用户返回一个数据(可以对数据进行处理)
+        conn.send(data)
+    })
+
+    conn.on('close', ()=>{
+        console.log('断开连接了')
+    })
+
+    // 注册error事件(不然当用户断开连接会报错,导致代码停止)
+    conn.on('error', ()=>{
+        console.log('报错')
+    })
+
+})  
+
+
+server.listen(PORT,() => {
+    console.log('websocket服务器启动成功了,监听了端口' + PORT)
+})
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+### socket.io
+
+````
+注意: 使用socket.io实现websocket协议需要在服务器和客户端都使用socket.io框架
+````
+
+
+
+
+
+#### 在node环境下使用express框架+socket.io框架实现websocket通信
+
+```javascript
+const express = require('express');					// 引入express
+const app = express();								// 调用express返回对象
+const http = require('http');						// 引入node环境下自带的模块http
+const server = http.createServer(app);				// 使用http创建一个服务器,服务器内部使用express框架
+const { Server } = require("socket.io");			// 引入socket.io中的Server方法
+const io = new Server(server);						// 传入服务器实例化并返回一个对象
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');			// 返回一个html文件(返回给浏览器会自动解析)
+});
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+
+server.listen(3000, () => {
+  console.log('listening on *:3000');
+});
+```
+
+
+
+
+
+
+
+```
+将信息发给所有人
+	io.emit(事件名,data)
+	
+将信息发给除发件人之外的所有人
+	io.on('connection', socket => {
+		socket.broadcast.emit(事件名,data)
+	})
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 文件上传
+
+```
+URL.createObjectURL() 静态方法会创建一个 DOMString，其中包含一个表示参数中给出的对象的URL。这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。
+
+URL.createObjectURL(blob)和FileReader.readAsDataURL(file)很相似，下面是个人的一些理解，如有不正确的地方，欢迎指出：
+
+主要区别
+    通过FileReader.readAsDataURL(file)可以获取一段data:base64的字符串
+
+    通过URL.createObjectURL(blob)可以获取当前文件的一个内存URL
+
+执行时机：
+    createObjectURL是同步执行（立即的）
+    FileReader.readAsDataURL是异步执行（过一段时间）
+    
+内存使用：
+createObjectURL返回一段带hash的url，并且一直存储在内存中，直到document触发了unload事件（例如：document close）或者执行revokeObjectURL来释放。
+FileReader.readAsDataURL则返回包含很多字符的base64，并会比blob url消耗更多内存，但是在不用的时候会自动从内存中清除（通过垃圾回收机制）
+兼容性方面两个属性都兼容ie10以上的浏览器。
+
+优劣对比：
+使用createObjectURL可以节省性能并更快速，只不过需要在不使用的情况下手动释放内存
+如果不太在意设备性能问题，并想获取图片的base64，则推荐使用FileReader.readAsDataURL
+```
+
+
+
+
+
+
+
+
+
+
+
+### ArrayBuffer
+
+```
+
+```
+
+
+
+
+
+
+
+```
+window.btoa()		编码base64
+window.atob()		解码base64
+```
+
+
+
+
+
+```
+文件上传
+	前端:
+		使用<input type="file"/>获取数据,然后使用FormData和ajax将数据上传到服务器
+	后端:
+		服务器使用multer中间件将数据保存到服务器
+```
+
+
+
+
+
+
+
+
+
+
+
+## vue脚手架的基本配置
+
+```
+第一步
+	下载less
+	yarn add less less-loader@5.0.0  -D
+	
+	
+第二步
+	在vue.config.js中关闭eslint语法检查和开启vue解析器
+	runtimeCompiler: true,
+    lintOnSave: false,
+    
+    
+第三步
+	配置路径别名
+	chainWebpack: (config)=>{
+        //修改文件引入自定义路径
+        config.resolve.alias
+            .set('@', require('path').join(__dirname,'src'))
+    }
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## nprogress
+
+```
+实现进度条
+
+引入
+	import NProgress from 'nprogress'
+	import 'nprogress/nprogress.css'
+	
+	
+使用
+	NProgress.start()				出现
+	NProgress.done()				消失
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## token实现免登陆思路
+
+```
+在前后端完全分离的情况下，Vue项目中实现token验证大致思路如下：
+
+1、第一次登录的时候，前端调后端的登陆接口，发送用户名和密码
+
+2、后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token
+
+3、前端拿到token，将token存储到localStorage和vuex中，并跳转路由页面
+
+4、前端每次跳转路由，就判断 localStroage 中有无 token ，没有就跳转到登录页面，有则跳转到对应路由页面
+
+5、每次调后端接口，都要在请求头中加token
+
+6、后端判断请求头中有无token，有token，就拿到token并验证token，验证成功就返回数据，验证失败（例如：token过期）就返回401，请求头中没有token也返回401
+
+7、如果前端拿到状态码为401，就清除token信息并跳转到登录页面
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 自定义封装组件库
+
+
+
+```
+组件通讯
+组件插槽
+props校验
+```
+
+
+
+
+
+
+
+
+
+### 引入iconfont创建图标组件
+
+```
+1. 在iconfont官网下载一个项目
+
+2. 将iconfont项目中的iconfont.css, iconfont.tff, iconfont.woff, iconfont.woff2引入到vue项目中
+
+3. 在main.js中引入iconfont.css
+
+4. 更改iconfont.css中的类名
+    /* 凡是类名中包含l-icon的字段的类,都会加上一下样式 */
+     [class*='l-icon']{
+      font-family: "iconfont" !important;
+      font-size: 16px;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .l-icon-zhuanji-:before {
+      content: "\e60b";
+    }
+    
+5. 定义组件,组件中引入图标字体,不需要向以前一样还要引入iconfont,只需要引入图标自身的类名即可,由于类名包含l-icon,所以会引入原本		iconfont类名的样式
+	<i class="l-icon-Next"></i>
+```
+
+
+
+
+
+
+
+
+
+
+
+### 组件绑定事件
+
+````
+当给组件定义点击事件时,点击组件时,组件没有响应,click不是原生click事件,而是自己定义的click事件
+<Button @click="click2">			
+
+此时,需要在组件内部定义click事件(原生的click事件),click事件触发绑定在组件上的click事件(自定义的)
+<div @click="handle"></div>
+
+methods: {
+	handle (e) {
+		this.$emit('click',e)
+	}
+}
+
+此时,组件就可以使用点击事件
+````
+
+
+
+
+
+
+
+
+
+### sync
+
+```
+作用: 一个语法糖,使子组件改变父组件的属性
+
+默认情况下,子组件修改父组件的属性:
+	父组件
+	<template>
+		<l-aaaa :visible=visible @close="colse"><l-aaaa>
+	</template>
+	<script>
+		data () {
+			return {
+				visible=false
+			} 
+		},
+		methods: {
+			close (value) {
+				this.visible = value
+			}
+		}
+	</script>
+	
+	子组件
+	<template>
+		<button @click=$emit('close',false)>
+	</template>
+	
+	
+	
+使用sync
+	父组件
+	<template>
+		<l-aaaa :visible.sync=visible><l-aaaa>
+	</template>
+	<script>
+		data () {
+			return {
+				visible=false
+			} 
+		},
+	</script>
+	
+	子组件
+	<template>
+		<button @click=$emit('update:visible',false)>
+	</template>
+	
+	
+sync是一个语法糖,省略了几步,使子组件修改父组件更加简单
+	不需要给子组件上绑定自定义事件,只需要传递props时给prop加上.sync,
+	子组件修改时只需要$emit('update:prop名',修改的值)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## webpack总结
+
+
+
+````
+webpack是一个静态模块打包工具(开始只能打包json和js)
+````
+
+
+
+
+
+### webpack如何打包
+
+```
+以入口文件开始,递归的构建一个依赖图(先查看入口文件有哪些依赖模块,在查看入口文件的依赖模块有哪些依赖模块,依次递归),并生成一个或多个bundle文件
+
+```
+
+
+
+
+
+
+
+### webpack和webpack-cli的区别
+
+````
+webpack是做js打包工作的
+webpack-cli解析webpack命令,命令内部使用webpack功能
+````
+
+
+
+
+
+
+
+### 为什么不全局下载,而是局部下载
+
+````
+
+防止版本不同,导致打包出错
+	
+	
+如果全局下载了webpack,局部也下载了,我们可以使用以下两种办法使用局部webpack
+	1. npx webpack			使用局部webpack进行打包
+	2. 将webpack命令配置到package.json中的scripts中
+	
+````
+
+
+
+
+
+
+
+### webpack的组成
+
+```
+1. 模式(mode)
+	选项
+		1. none
+		2. development(开发)
+		3. production(生产,默认)
+		
+2. 入口(entry)
+	打包的入口文件,可以指定多个
+	
+3. 出口(output)
+	打包后文件
+4. loader
+	打包webpack不能打包的文件资源,比如图片,html文件,等等
+5. 插件(plugin)
+	可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩
+```
+
+
+
+
+
+
+
+
+
+### babel和eslint
+
+````
+babel
+	打包js
+eslint
+	语法检查
+````
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
